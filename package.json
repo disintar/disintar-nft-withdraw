@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && set GH_PAGES=true && vite build",
+    "deploy": "gh-pages -d docs",
     "build:dev": "tsc && vite build",
     "preview": "vite preview"
   },

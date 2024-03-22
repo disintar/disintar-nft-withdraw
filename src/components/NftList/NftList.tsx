@@ -36,14 +36,13 @@ const NftList = () => {
             }
         }
         if(wallet){
+            setLoading(true)
             fetchData()
         }
     }, [])
 
     useEffect(() => {
-        if(wallet){
-            setLoading(true)
-        }
+        
         if (data) {
           const fetchItemDetails = async () => {
             const updatedItems: any [] = [];
@@ -105,7 +104,7 @@ const NftList = () => {
             </Container>
     }
 
-return <Container maxWidth="lg">
+return <Container maxWidth="lg" sx={{pb: 8}}>
             <TextField id="outlined-basic" 
                 className='state-list-search__input'
                 placeholder="Search"
@@ -115,8 +114,8 @@ return <Container maxWidth="lg">
                 sx={{ mb: 4 }}
             />
             {error && <Alert severity="error">{error}</Alert>}
-            {!loading &&!list?.length && <Alert severity="info">No NFTs found</Alert>}
-            <Grid container spacing={{ xs: 1, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }}>
+            {!loading && !list?.length && <Alert severity="info">No NFTs found</Alert>}
+            <Grid container spacing={{ xs: 1, md: 2 }} columns={{ xs: 2, sm: 4, md: 8 }}>
                 {loading ? <CircularProgress sx={{margin:'auto', mt: 8}}/> : 
                     list?.map((item, index) => 
                     <Grid item xs={2} sm={4} md={4} key={index}>

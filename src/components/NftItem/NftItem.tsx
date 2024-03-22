@@ -10,7 +10,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import { CardActions, Typography } from '@mui/material'
+import { CardActions, Divider, Typography } from '@mui/material'
 
 
 const NftItemComponent = ({item, setError, sendTx}: {
@@ -54,6 +54,19 @@ const NftItemComponent = ({item, setError, sendTx}: {
                     onError={handleImageError}
                 />
                 <CardContent>
+                <Typography gutterBottom variant='body1' component="div">
+                        NFT
+                    </Typography>
+                    <Typography gutterBottom variant='caption' component="div">
+                        {item?.nft_address_friendly}
+                    </Typography>
+                    <Typography gutterBottom variant='body1' component="div">
+                    Seller
+                    </Typography>
+                    <Typography gutterBottom variant='caption' component="div">
+                       {item?.seller_address_friendly}
+                    </Typography>
+                    <Divider orientation="vertical" flexItem />
                     <Typography gutterBottom variant="h5" component="div">
                         Price: {item?.price} TON
                     </Typography>
