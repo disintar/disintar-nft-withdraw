@@ -27,7 +27,7 @@ const NftList = () => {
             try {
                 const {account_wc, account_address} = walletAddressToRaw(wallet?.account);
                 const {raw_account_states}: { raw_account_states: AccountState[]; }
-                 = await request(endpoint, RawAccountStatesQuery(account_wc, account_address))
+                 = await request(endpoint, RawAccountStatesQuery(0, '6A0A5AAC07B869962E10084C6EF7F19A432C0C7A0ADB510B5243680E59D30D84'))
                 if(raw_account_states){
                     setData(raw_account_states)
                 }
@@ -35,14 +35,15 @@ const NftList = () => {
                 setError(err.message)
             }
         }
+
+        setLoading(true)
         if(wallet){
-            setLoading(true)
             fetchData()
         }
-    }, [])
+
+    }, [wallet])
 
     useEffect(() => {
-        
         if (data) {
           const fetchItemDetails = async () => {
             const updatedItems: any [] = [];
@@ -76,8 +77,7 @@ const NftList = () => {
                     setError('NFT not found on IPFS')
                     return;
                 }
-              }
-            
+            }
             setItemsData(updatedItems);
             setList(updatedItems)
             setLoading(false)
@@ -100,8 +100,8 @@ const NftList = () => {
 
     if(!wallet) {
         return <Container maxWidth="lg">
-            <Alert severity="info">Connect Wallet</Alert>
-            </Container>
+                    <Alert severity="info">Connect Wallet</Alert>
+                </Container>
     }
 
 return <Container maxWidth="lg" sx={{pb: 8}}>

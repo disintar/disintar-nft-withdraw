@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
-import './NftItem.scss'
 import { request } from 'graphql-request'
-import { AccountState, NftItem } from "../NftList/types"
+import {  NftItem } from "../NftList/types"
 import { CheckIsDisintarQuery, endpoint } from '../NftList/queries'
 import { beginCell, toNano } from '@ton/core'
 
