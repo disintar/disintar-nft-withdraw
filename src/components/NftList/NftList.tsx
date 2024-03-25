@@ -31,7 +31,7 @@ const NftList = () => {
 
     let _DATA = usePagination(data, PER_PAGE);
   
-    const handleChange = (e:number, p: number) => {
+    const handleChange = (e:any, p: any) => {
       setPage(p);
       _DATA.jump(p);
     };
