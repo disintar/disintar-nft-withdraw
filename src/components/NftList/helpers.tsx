@@ -9,7 +9,7 @@ const walletAddressToRaw = (account:any) => {
     if(!account)
      return {account_wc: 0, account_address: ''}
     const [wc, address] = account.address.split(':');
-    return {account_wc: +wc, account_address: address}
+    return {account_wc: +wc, account_address: address.toUpperCase()}
 }
 
 export { addressToFriendlyBounceable, walletAddressToRaw }
