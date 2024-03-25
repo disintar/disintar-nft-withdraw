@@ -27,7 +27,7 @@ const NftList = () => {
             try {
                 const {account_wc, account_address} = walletAddressToRaw(wallet?.account);
                 const {raw_account_states}: { raw_account_states: AccountState[]; }
-                 = await request(endpoint, RawAccountStatesQuery(0, '6A0A5AAC07B869962E10084C6EF7F19A432C0C7A0ADB510B5243680E59D30D84'))
+                 = await request(endpoint, RawAccountStatesQuery(account_wc, account_address))
                 if(raw_account_states){
                     setData(raw_account_states)
                 }
