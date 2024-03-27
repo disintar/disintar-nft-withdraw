@@ -1,7 +1,7 @@
 import { request } from 'graphql-request'
-import {  AccountState, NftItem } from "../NftList/types"
+import { NftItem } from "../NftList/types"
 import { CheckIsDisintarQuery, endpoint } from '../NftList/queries'
-import { beginCell, fromNano, toNano } from '@ton/core'
+import { beginCell, toNano } from '@ton/core'
 
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -10,36 +10,30 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActions, Divider, Typography } from '@mui/material'
 import { useEffect, useState } from 'react';
-import { addressToFriendlyBounceable } from '../NftList/helpers';
-import { apiSource } from '../NftList/constants'
-
-
-
-
+import { apiSource, mainSource } from '../NftList/constants'
 
 const NftItemComponent = ({item, sendTx}: {
     item: NftItem,
       sendTx: (tx: any) => void}) => {
-        const {nft_address_friendly, seller_address_friendly, price, seller_wc_raw, seller_address_raw} = item
+        const {nft_address_friendly} = item
         const [error, setError] = useState<string | undefined>(undefined)
         const [itemDetails, setItemDetails] = useState<any>(item)
 
-        useEffect(() => {
-            
-            const fetchItemIpfs = async (route: any) => {
-                await fetch(route)
-                .then(response => response.json())
-                .then(response => {
-                    setItemDetails((prev: any) => ({
-                        ...prev,
-                        ...response
-                    }))}
-                    ).catch(error => {
-                        console.log(error)
-                        setError(error.message)
-                    })
-                }
+        const fetchItemIpfs = async (route: any) => {
+            await fetch(route)
+            .then(response => response.json())
+            .then(response => {
+                setItemDetails((prev: any) => ({
+                    ...prev,
+                    ...response
+                }))}
+                ).catch(error => {
+                    console.log(error)
+                    setError(error.message)
+                })
+            }
 
+        useEffect(() => {
                 const fetchItemDetails = async () => {
                     await fetch(apiSource + 'getNFTInfo' + '?nft_address='+ nft_address_friendly)
                     .then(response => response.json())
@@ -47,10 +41,12 @@ const NftItemComponent = ({item, sendTx}: {
                         if(response?.data){
                             const name = response.data?.name;
                             const ipfs_address = response.data?.ipfs_address;
+                            const thumbnail = `${mainSource}${response.data?.thumbnail}`;
 
                             setItemDetails({
                             ...item,
                             name,
+                            thumbnail,
                             ipfs_address,
                          })
                         }
@@ -64,7 +60,6 @@ const NftItemComponent = ({item, sendTx}: {
                         }
                     })
                 }
-           
             
                 fetchItemDetails()
     },[item])
@@ -94,19 +89,42 @@ const NftItemComponent = ({item, sendTx}: {
 
         const handleImageError = (e: any) => {
             e.target.onerror = null;
-            e.target.src = "https://via.placeholder.com/180"
+            e.target.src =  "https://via.placeholder.com/360"
         }
+
+        const renderImage = () => {
+            if (!itemDetails.thumbnail) {
+                return <CardMedia 
+                component='img'
+                sx={{ height: 360, objectFit:'contain', padding: 4}} 
+                image={"https://via.placeholder.com/360"}
+                title={itemDetails?.name}
+                onError={handleImageError}
+                />
+            }
+            if(itemDetails?.thumbnail.endsWith('.mp4')){
+                return <CardMedia 
+                component='video'
+                sx={{ height: 360, objectFit:'contain', padding: 4}} 
+                image={itemDetails?.thumbnail}
+                title={itemDetails?.name}
+                onError={handleImageError}
+                />
+            }
+
+            return <CardMedia 
+                component='img'
+                sx={{ height: 360, objectFit:'contain', padding: 4}} 
+                image={itemDetails?.image}
+                title={itemDetails?.name}
+                onError={handleImageError}
+            />
+    }
 
     return (
             <Card variant="outlined">
-                <CardHeader title={itemDetails?.data?.name || itemDetails?.error} />
-                <CardMedia 
-                    component="img"
-                    sx={{ height: 360, objectFit:'initial', padding: 4}} 
-                    image={itemDetails?.image || 'https://via.placeholder.com/360'}
-                    title={itemDetails?.data?.name}
-                    onError={handleImageError}
-                />
+                <CardHeader title={itemDetails?.name || itemDetails?.error} />
+                {renderImage()}
                 <CardContent>
                 <Typography gutterBottom variant='body1' component="div">
                         NFT
@@ -124,7 +142,7 @@ const NftItemComponent = ({item, sendTx}: {
                     <Typography gutterBottom variant="h5" component="div">
                         Price: {item?.price} TON
                     </Typography>
-                    <Typography gutterBottom variant='caption' component="div">
+                    <Typography gutterBottom variant='caption' sx={{color:'red'}} component="div">
                         {error}
                     </Typography>
                 </CardContent>

@@ -1,5 +1,5 @@
 import './App.scss'
-import {THEME, TonConnectUIProvider} from "@tonconnect/ui-react";
+import {THEME, TonConnectUIProvider, useTonWallet} from "@tonconnect/ui-react";
 import {Header} from "./components/Header/Header";
 import { NftList } from './components/NftList';
 

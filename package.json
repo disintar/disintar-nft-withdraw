@@ -18,11 +18,11 @@
     "@ton/core": "^0.55.0",
     "@tonconnect/ui-react": "^2.0.1-beta.0",
     "@types/react-transition-group": "^4.4.10",
-    "antd": "^5.15.3",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
+    "react-image": "^4.1.0",
     "vite-plugin-node-polyfills": "^0.21.0"
   },
   "devDependencies": {

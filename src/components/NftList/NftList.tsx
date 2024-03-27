@@ -17,6 +17,7 @@ import usePagination from '../hooks/usePagination'
 const NftList = () => {
     const wallet = useTonWallet();
     const [tonConnectUi] = useTonConnectUI();
+    
     const [data, setData] = React.useState<any []>([])
     const [loading, setLoading] = React.useState<boolean>(false)
     const [error, setError] = React.useState<string | undefined>()
@@ -42,7 +43,7 @@ const NftList = () => {
                 const {account_wc, account_address} = walletAddressToRaw(wallet?.account);
                 setAddress(account_address)
                 const {raw_account_states}: { raw_account_states: AccountState[]; }
-                 = await request(endpoint, RawAccountStatesQuery(account_wc, account_address))
+                 = await request(endpoint, RawAccountStatesQuery(account_wc, '54642EF2AB1B7205F9BD12780E423E6F631C0EDE18DF78463F414190A7BA9249'))
                 if(raw_account_states){
                     
                     const nft_items = raw_account_states.map(raw_account_state => {
@@ -82,7 +83,6 @@ const NftList = () => {
         const searchTerm = e.target.value.toLowerCase()
         setSearch(searchTerm)
         const filteredData = data?.filter(item => item?.nft_address_friendly.toLowerCase().includes(searchTerm))
-        console.log('filteredData',filteredData)
         setList(filteredData)
     }
 
@@ -91,7 +91,7 @@ const NftList = () => {
                     <Alert severity="info">Connect Wallet</Alert>
                 </Container>
     }
-        console.log(search, list)
+    
     
 
 return <Container maxWidth="lg" sx={{pb: 8}}>
