@@ -6,7 +6,7 @@ import { NftList } from './components/NftList';
 function App() {
   return (
       <TonConnectUIProvider
-          manifestUrl="https://ton-connect.github.io/demo-dapp-with-wallet/tonconnect-manifest.json"
+          manifestUrl="https://futli.github.io/disintar-nft-withdraw/tonconnect-manifest.json"
           uiPreferences={{ theme: THEME.DARK }}
           walletsListConfiguration={{
             includeWallets: [
