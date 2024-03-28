@@ -1,5 +1,7 @@
 {
   "url": "https://futli.github.io/disintar-nft-withdraw/",
-  "name": "Disintar Withdraw NFT",
-  "iconUrl": "https://futli.github.io/disintar-nft-withdraw/apple-touch-icon.png"
+  "name": "Disintar Withdraw",
+  "iconUrl": "https://futli.github.io/disintar-nft-withdraw/apple-touch-icon.png",
+  "termsOfUseUrl": "https://futli.github.io/disintar-nft-withdraw/terms-of-use.txt",
+  "privacyPolicyUrl": "https://futli.github.io/disintar-nft-withdraw/privacy-policy.txt"
 }
