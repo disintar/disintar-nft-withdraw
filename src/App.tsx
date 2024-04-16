@@ -1,34 +1,22 @@
 import './App.scss'
-import {THEME, TonConnectUIProvider} from "@tonconnect/ui-react";
+
 import {Header} from "./components/Header/Header";
-import { NftList } from './components/NftList';
+import { Layout } from './components/Layout';
+import { Home } from './pages/Home';
+import { NftSell } from './pages/NftSell';
+import { NftWithdraw } from './pages/NftWithdraw';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-  return (
-      <TonConnectUIProvider
-          manifestUrl="https://disintar.github.io/disintar-nft-withdraw/tonconnect-manifest.json"
-          uiPreferences={{ theme: THEME.DARK }}
-          walletsListConfiguration={{
-            includeWallets: [
-              {
-                appName: "tonwallet",
-                name: "TON Wallet",
-                imageUrl: "https://wallet.ton.org/assets/ui/qr-logo.png",
-                aboutUrl: "https://chrome.google.com/webstore/detail/ton-wallet/nphplpgoakhhjchkkhmiggakijnkhfnd",
-                universalLink: "https://wallet.ton.org/ton-connect",
-                jsBridgeKey: "tonwallet",
-                bridgeUrl: "https://bridge.tonapi.io/bridge",
-                platforms: ["chrome", "android"]
-              }
-            ]
-          }}
-      >
-        <div className="app">
-            <Header />
-            <NftList/>
-        </div>
-      </TonConnectUIProvider>
-  )
+  return <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='/withdraw' element={<NftWithdraw />} />
+          <Route path='/sell' element={<NftSell />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
 }
 
 export default App

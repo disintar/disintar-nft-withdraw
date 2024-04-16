@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NftItem } from "../NftList/types";
+import { NftItem } from "../../pages/NftWithdraw/types";
 
 function usePagination(data: NftItem [], itemsPerPage:number) {
   const [currentPage, setCurrentPage] = useState(1);

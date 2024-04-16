@@ -3,7 +3,7 @@ import { request } from 'graphql-request'
 import { RawAccountStatesQuery, endpoint } from './queries'
 import { AccountState, NftItem } from './types'
 import './styles.scss'
-import { NftItemComponent } from '../NftItem'
+import { NftItemComponent } from '../../components/NftItem'
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react'
 import { fromNano } from '@ton/core'
 
@@ -11,10 +11,10 @@ import { fromNano } from '@ton/core'
 import { CircularProgress, Container, Grid, TextField, Alert, Pagination  } from '@mui/material'
 import { addressToFriendlyBounceable, walletAddressToRaw } from './helpers'
 
-import usePagination from '../hooks/usePagination'
+import usePagination from '../../components/hooks/usePagination'
 
 
-const NftList = () => {
+const NftWithdraw = () => {
     const wallet = useTonWallet();
     const [tonConnectUi] = useTonConnectUI();
     
@@ -87,14 +87,14 @@ const NftList = () => {
     }
 
     if(!wallet) {
-        return <Container maxWidth="lg">
+        return <Container maxWidth="lg" sx={{pb: 8, mt:8}}>
                     <Alert severity="info">Connect Wallet</Alert>
                 </Container>
     }
     
     
 
-return <Container maxWidth="lg" sx={{pb: 8}}>
+return <Container maxWidth="lg" sx={{pb: 8, mt:4}}>
             <TextField id="outlined-basic" 
                 className='state-list-search__input'
                 placeholder="Search"
@@ -134,4 +134,4 @@ return <Container maxWidth="lg" sx={{pb: 8}}>
         </Container>
 }
 
-export {NftList}
+export {NftWithdraw}

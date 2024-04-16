@@ -1,6 +1,6 @@
 import { request } from 'graphql-request'
-import { NftItem } from "../NftList/types"
-import { CheckIsDisintarQuery, endpoint } from '../NftList/queries'
+import { NftItem } from "../../pages/NftWithdraw/types"
+import { CheckIsDisintarQuery, endpoint } from '../../pages/NftWithdraw/queries'
 import { beginCell, toNano } from '@ton/core'
 
 import Button from '@mui/material/Button';
@@ -10,7 +10,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActions, Divider, Typography } from '@mui/material'
 import { useEffect, useState } from 'react';
-import { apiSource, mainSource } from '../NftList/constants'
+import { apiSource, mainSource } from '../../pages/NftWithdraw/constants'
 
 const NftItemComponent = ({item, sendTx}: {
     item: NftItem,
